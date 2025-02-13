@@ -276,7 +276,7 @@ Function Confirm-ADSOrganizationalStructure
                     If ($OUStructure.IgnoreSubOUs)
                     {
                         Write-Host "[$($DistinguishedName)] Ignoring OU '$($ou)' since IgnoreSubOUs is set" -ForegroundColor Yellow
-                        $CorrectOUs.Value.Remove($ou) | Out-Null
+                        $CorrectOUs.Value.Add($ou) | Out-Null
                         Continue
                     }
 

@@ -34,7 +34,7 @@ Function Confirm-ADSContainer
         $ContainerName = $($ContainerStructure.Name)
         If ([String]::IsNullOrEmpty($ContainerName))
         {
-            # This basically means that the XML object is empty so skip it
+            # This basically means that the XML object is empty so § it
             Write-Verbose "[$($DistinguishedName)] Container seems to contain no rules. Skipping"
             Continue
         }
