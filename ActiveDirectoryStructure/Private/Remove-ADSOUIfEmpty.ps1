@@ -17,6 +17,12 @@ Function Remove-ADSOUIfEmpty
     Process
     {
         Write-Verbose "[$($OUDistinguishedName)] Checking if OU should be deleted"
+        If (-not (Get-ADObject -Filter "distinguishedName -eq '$($OUDistinguishedName)'" -ErrorAction 'SilentlyContinue'))
+        {
+            Write-Verbose "[$($OUDistinguishedName)] OU no longer exists, skipping"
+            Return
+        }
+
         # OU exists but should not
         $objects = Get-ADObject -Filter * -SearchBase $OUDistinguishedName
 
