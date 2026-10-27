@@ -4,7 +4,9 @@ Function Remove-ADSOUIfEmpty
     Param
     (
         [Parameter(Mandatory = $True)]
-        [String] $OUDistinguishedName
+        [String] $OUDistinguishedName,
+
+        [Switch]$ForceOuDeletion
     )
 
     Begin
@@ -41,7 +43,7 @@ Function Remove-ADSOUIfEmpty
                 Write-Host 'Deleting will continue as OU is empty!' -ForegroundColor Red
                 If ($PSCmdlet.ShouldProcess($OUDistinguishedName, 'Remove-ADOrganizationalUnit'))
                 {
-                    If ($Force -or $PSCmdlet.ShouldContinue("Delete OU '$($OUDistinguishedName)'", "Are you sure you want to delete the OU '$($OUDistinguishedName)'", $True, [Ref]$YesToAllOU, [Ref]$NoToAllOU))
+                    If ($ForceOuDeletion.IsPresent -or $PSCmdlet.ShouldContinue("Delete OU '$($OUDistinguishedName)'", "Are you sure you want to delete the OU '$($OUDistinguishedName)'", $True, [Ref]$YesToAllOU, [Ref]$NoToAllOU))
                     {
                         Set-ADOrganizationalUnit -Identity $OUDistinguishedName -ProtectedFromAccidentalDeletion $False
                         Remove-ADOrganizationalUnit -Identity $OUDistinguishedName -Confirm:$False | Out-Null

@@ -17,6 +17,7 @@ Function Confirm-ADSOrganizationalStructure
 
         [Switch] $CreateOnly,
         [Switch] $SkipOUDelete,
+        [Switch] $ForceOuDeletion,
         [Switch] $DeleteOnly,
         [Switch] $ACLOnly,
         [Switch] $NoACL,
@@ -285,7 +286,7 @@ Function Confirm-ADSOrganizationalStructure
                         Continue
                     }
 
-                    Remove-ADSOUIfEmpty -OUDistinguishedName $ou -WhatIf:$WhatIfPreference
+                    Remove-ADSOUIfEmpty -OUDistinguishedName $ou -ForceOuDeletion:$ForceOuDeletion -WhatIf:$WhatIfPreference
                 }
             }
         }
