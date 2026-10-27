@@ -20,7 +20,8 @@ Function Confirm-ADSOrganizationalStructure
         [Switch] $DeleteOnly,
         [Switch] $ACLOnly,
         [Switch] $NoACL,
-        
+        [Switch] $SkipGPO,
+
         [Switch] $TopLevel
     )
 
@@ -35,6 +36,7 @@ Function Confirm-ADSOrganizationalStructure
             Write-Verbose "[$($DistinguishedName)] DeleteOnly: $($DeleteOnly.IsPresent)"
             Write-Verbose "[$($DistinguishedName)] ACLOnly: $($ACLOnly.IsPresent)"
             Write-Verbose "[$($DistinguishedName)] NoACL: $($NoACL.IsPresent)"
+            Write-Verbose "[$($DistinguishedName)] SkipGPO: $($SkipGPO.IsPresent)"
         }
 
         $AllOUs = $Null
@@ -135,7 +137,7 @@ Function Confirm-ADSOrganizationalStructure
 
             If ($Null -ne $ou)
             {
-                If (-not $ACLOnly.IsPresent)
+                If (-not $ACLOnly.IsPresent -and -not $SkipGPO.IsPresent)
                 {
                     Confirm-ADSOrganizationalStructureGPO -DistinguishedName $ouDistinguishedName -Variables $Variables -OUStructure $OUStructure -WhatIf:$WhatIfPreference -ADServer $ADServer
                 }
@@ -172,9 +174,10 @@ Function Confirm-ADSOrganizationalStructure
                         DeleteOnly        = $DeleteOnly
                         ACLOnly           = $ACLOnly
                         NoACL             = $NoACL
+                        SkipGPO           = $SkipGPO
                         WhatIf            = $WhatIfPreference
                     }
-                    
+
                     If ($OUStructure.IgnoreSubOUs)
                     {
                         $ou.SetAttribute('IgnoreSubOUs', $True) | Out-Null
@@ -212,6 +215,7 @@ Function Confirm-ADSOrganizationalStructure
                             DeleteOnly        = $DeleteOnly
                             ACLOnly           = $ACLOnly
                             NoACL             = $NoACL
+                            SkipGPO           = $SkipGPO
                             WhatIf            = $WhatIfPreference
                         }
 
@@ -249,6 +253,7 @@ Function Confirm-ADSOrganizationalStructure
                     DeleteOnly        = $DeleteOnly
                     ACLOnly           = $ACLOnly
                     NoACL             = $NoACL
+                    SkipGPO           = $SkipGPO
                     WhatIf            = $WhatIfPreference
                 }
 
