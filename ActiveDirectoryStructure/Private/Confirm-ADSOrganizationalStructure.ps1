@@ -18,6 +18,7 @@ Function Confirm-ADSOrganizationalStructure
         [Switch] $CreateOnly,
         [Switch] $SkipOUDelete,
         [Switch] $ForceOuDeletion,
+        [Switch] $ForceGPLinkDeletion,
         [Switch] $DeleteOnly,
         [Switch] $ACLOnly,
         [Switch] $NoACL,
@@ -140,7 +141,7 @@ Function Confirm-ADSOrganizationalStructure
             {
                 If (-not $ACLOnly.IsPresent -and -not $SkipGPO.IsPresent)
                 {
-                    Confirm-ADSOrganizationalStructureGPO -DistinguishedName $ouDistinguishedName -Variables $Variables -OUStructure $OUStructure -WhatIf:$WhatIfPreference -ADServer $ADServer
+                    Confirm-ADSOrganizationalStructureGPO -DistinguishedName $ouDistinguishedName -Variables $Variables -OUStructure $OUStructure -ForceGPLinkDeletion:$ForceGPLinkDeletion -WhatIf:$WhatIfPreference -ADServer $ADServer
                 }
 
                 If (-not $NoACL.IsPresent -and -not $CreateOnly.IsPresent)
@@ -173,6 +174,7 @@ Function Confirm-ADSOrganizationalStructure
                         CreateOnly        = $CreateOnly
                         SkipOUDelete      = $SkipOUDelete
                         ForceOuDeletion   = $ForceOuDeletion
+                        ForceGPLinkDeletion = $ForceGPLinkDeletion
                         DeleteOnly        = $DeleteOnly
                         ACLOnly           = $ACLOnly
                         NoACL             = $NoACL
@@ -215,6 +217,7 @@ Function Confirm-ADSOrganizationalStructure
                             CreateOnly        = $CreateOnly
                             SkipOUDelete      = $SkipOUDelete
                             ForceOuDeletion   = $ForceOuDeletion
+                            ForceGPLinkDeletion = $ForceGPLinkDeletion
                             DeleteOnly        = $DeleteOnly
                             ACLOnly           = $ACLOnly
                             NoACL             = $NoACL
@@ -254,6 +257,7 @@ Function Confirm-ADSOrganizationalStructure
                     CreateOnly        = $CreateOnly
                     SkipOUDelete      = $SkipOUDelete
                     ForceOuDeletion   = $ForceOuDeletion
+                    ForceGPLinkDeletion = $ForceGPLinkDeletion
                     DeleteOnly        = $DeleteOnly
                     ACLOnly           = $ACLOnly
                     NoACL             = $NoACL

@@ -10,7 +10,9 @@ Function Confirm-ADSOrganizationalStructureGPO
         [Parameter(Mandatory = $True)]
         $OUStructure,
         [Parameter(Mandatory = $True)]
-        $Variables
+        $Variables,
+
+        [Switch] $ForceGPLinkDeletion
     )
 
     Begin
@@ -166,7 +168,7 @@ Function Confirm-ADSOrganizationalStructureGPO
                 Write-Host "[$($DistinguishedName)] Deleting Link '$($gpo.DisplayName)' from '$($DistinguishedName)'" -ForegroundColor Red
                 If ($PSCmdlet.ShouldProcess("-Name '$($gpo.DisplayName)' -Target '$($DistinguishedName)'", 'Remove-GPLink'))
                 {
-                    If ($Force -or $PSCmdlet.ShouldContinue("Delete link of GPO '$($gpo.DisplayName)' from '$($DistinguishedName)'", "Are you sure you want to delete link of GPO '$($gpo.DisplayName)' from '$($DistinguishedName)'?", $False, [Ref]$YesToAllGPLink, [Ref]$NoToAllGPLink))
+                    If ($ForceGPLinkDeletion.IsPresent -or $PSCmdlet.ShouldContinue("Delete link of GPO '$($gpo.DisplayName)' from '$($DistinguishedName)'", "Are you sure you want to delete link of GPO '$($gpo.DisplayName)' from '$($DistinguishedName)'?", $False, [Ref]$YesToAllGPLink, [Ref]$NoToAllGPLink))
                     {
                         Remove-GPLink -Name $($gpo.DisplayName) -Target $($DistinguishedName) -Server $ADServer | Out-Null
                     }
