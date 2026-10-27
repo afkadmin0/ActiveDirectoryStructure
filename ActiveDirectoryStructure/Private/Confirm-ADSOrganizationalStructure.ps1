@@ -172,6 +172,7 @@ Function Confirm-ADSOrganizationalStructure
                         CorrectOUs        = $CorrectOUs
                         CreateOnly        = $CreateOnly
                         SkipOUDelete      = $SkipOUDelete
+                        ForceOuDeletion   = $ForceOuDeletion
                         DeleteOnly        = $DeleteOnly
                         ACLOnly           = $ACLOnly
                         NoACL             = $NoACL
@@ -213,6 +214,7 @@ Function Confirm-ADSOrganizationalStructure
                             CorrectOUs        = $CorrectOUs
                             CreateOnly        = $CreateOnly
                             SkipOUDelete      = $SkipOUDelete
+                            ForceOuDeletion   = $ForceOuDeletion
                             DeleteOnly        = $DeleteOnly
                             ACLOnly           = $ACLOnly
                             NoACL             = $NoACL
@@ -251,6 +253,7 @@ Function Confirm-ADSOrganizationalStructure
                     CorrectOUs        = $CorrectOUs
                     CreateOnly        = $CreateOnly
                     SkipOUDelete      = $SkipOUDelete
+                    ForceOuDeletion   = $ForceOuDeletion
                     DeleteOnly        = $DeleteOnly
                     ACLOnly           = $ACLOnly
                     NoACL             = $NoACL
